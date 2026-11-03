@@ -28,7 +28,7 @@ class KorisnikController extends Controller
             'password'=>'required|min:8|confirmed',
         ]);
 
-        //ovo je insert, eloquent radi, to je taj ORM
+        //ovo je insert ali u eloquentu, to je taj ORM
         User::create([
             'name'=>$podaci['name'],
             'email'=>$podaci['email'],
@@ -59,5 +59,18 @@ class KorisnikController extends Controller
             'email'=>'Pogresan email ili lozinka'
          ]);
     }
+
+    public function profil() {
+        return view("profil");
+    }
+
+    public function odjava(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect("/prijava");
+    }
+
+
 
 }

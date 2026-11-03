@@ -19,3 +19,10 @@ Route::post("/registracija", [KorisnikController::class, "spremiRegistraciju"]);
 Route::get("/prijava", [KorisnikController::class, "prijava"])->name('login');
 
 Route::post("/prijava", [KorisnikController::class, "provjeriPrijavu"]);
+
+//Stitimo rutu: ovo moze vidit samo neko ko je prijavljen 
+//Kad bi neprijavljeni korisnik upisa ovaj path u url, laravel mu ne bi prikaza stranicu 
+Route::get("/profil", [KorisnikController::class, "profil"])->middleware("auth");
+
+Route::post('/odjava', [KorisnikController::class, 'odjava'])->middleware("auth");
+
