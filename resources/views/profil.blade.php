@@ -10,6 +10,8 @@
 
     <p>Dobrodosli, {{auth()->user()->name}}</p>
 
+    <a href="biljeske">Moje biljeske</a>
+
     <form action="/odjava" method="post">
         @csrf
         <button type="submit">Odjavi me!</button>

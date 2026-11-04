@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KorisnikController;
+use App\Http\Controllers\BiljeskaController;
 
 Route::get("/", function(){
     return redirect("prijava");
 });
+
+//___________________KorisnikController metode________________________________________________
 
 Route::get("/registracija", [KorisnikController::class, "registracija"]);
 
@@ -26,3 +29,18 @@ Route::get("/profil", [KorisnikController::class, "profil"])->middleware('auth')
 
 Route::post('/odjava', [KorisnikController::class, 'odjava'])->middleware('auth');
 
+//_____________________BiljeskaController metode____________________________________________
+
+//S obzirom da za sve 4 CRUD metode nad biljeskama imamo istu zastitu rute, odnosno korisnik moze ove
+//4 metode raditi samo nad svojim biljeskama, mozemo ovako grupirati 
+Route::middleware('auth')->group(function () {
+    Route::get('/biljeske', [BiljeskaController::class, 'index']);
+    Route::post('/biljeske', [BiljeskaController::class, 'store']);
+
+    //Ovi 'put' i 'delete' su novi
+    //ova viticasta zagrada u ruti se zove dinamicki parametar URL-a
+    //on znaci da ce laravel prepoznati da se ovuda salju neki specificni podaci
+    //cila ideja ovakvog principa se zove "Route-Model binding"
+    Route::put('/biljeske/{biljeska}', [BiljeskaController::class, 'update']);
+    Route::delete('/biljeske/{biljeska}', [BiljeskaController::class, 'destroy']);
+});

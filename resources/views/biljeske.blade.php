@@ -8,6 +8,15 @@
 <body>
     <h1>Moje biljeske</h1>
     <p>Prijavljen korisnik: {{auth()->user()->name}}</p>
+
+        @if($errors->any)
+        <ul>
+            @foreach ($errors->all() as $greska)
+                <li>{{$greska}}</li>
+            @endforeach
+        </ul>
+        @endif
+
     <h3>Dodavanje biljeske</h3>
     <form action="/biljeske" method="post">
         @csrf
@@ -21,5 +30,39 @@
 
         <button type="submit">Dodaj biljesku</button>
     </form>
+
+    <hr>
+
+    <h3>Moje biljeske: </h3>
+    @forelse ($biljeske as $biljeska)
+        <h3>{{$biljeska->naslov}}</h3>
+        <p>{{$biljeska->sadrzaj}}</p>
+
+        <h4>Uredi biljesku</h4>
+        <form action="biljeske/{{biljeska_id}}" method="post">
+            @csrf
+            @method('PUT')
+
+            <input type="text" name="naslov" value="{{$biljeska->naslov}}" required>
+            <br>
+            <textarea name="sadrzaj" required>{{$biljeska->sadrzaj}}</textarea>
+            <br>
+            <button type="submit">Spremi izmjene</button>
+        </form>
+
+        <form action="biljeske/{{biljeska_id}}" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Izbrisi</button>
+        </form>
+        <hr>
+        @empty
+        <p>Jos nemate biljeski</p>
+
+    @endforelse
+
+    <p>Vratite se na <a href="/profil">profil</a></p>
+
+
 </body>
 </html>
