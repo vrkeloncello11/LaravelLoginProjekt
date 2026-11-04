@@ -9,7 +9,7 @@
     <h1>Moje biljeske</h1>
     <p>Prijavljen korisnik: {{auth()->user()->name}}</p>
 
-        @if($errors->any)
+        @if($errors->any)   @if($errors->())
         <ul>
             @foreach ($errors->all() as $greska)
                 <li>{{$greska}}</li>
@@ -39,7 +39,7 @@
         <p>{{$biljeska->sadrzaj}}</p>
 
         <h4>Uredi biljesku</h4>
-        <form action="biljeske/{{biljeska_id}}" method="post">
+        <form action="biljeske/{{biljeska_id}}" method="post">   action="/biljeske/{{ $biljeska->id }}"
             @csrf
             @method('PUT')
 
@@ -50,7 +50,7 @@
             <button type="submit">Spremi izmjene</button>
         </form>
 
-        <form action="biljeske/{{biljeska_id}}" method="post">
+        <form action="biljeske/{{biljeska_id}}" method="post">   action="/biljeske/{{ $biljeska->id }}"
             @csrf
             @method('DELETE')
             <button type="submit">Izbrisi</button>
