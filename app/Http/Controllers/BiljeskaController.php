@@ -55,6 +55,6 @@ class BiljeskaController extends Controller
 
         //ako je user vlasnik biljeske, brisi i redirectaj nazad na sve biljeske
         $biljeska->delete();
-        return redirect('biljeske');
+        return redirect('biljeske');    return redirect('biljeske');
     }
 }
