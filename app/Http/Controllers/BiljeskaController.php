@@ -11,10 +11,10 @@ class BiljeskaController extends Controller
     public function index() {
         //auth naravno, samo logirani korisnik moze vidit svoje biljeske
         //ovaj biljeske na kraju je onaj iz modela, di je bilo belongsTo i hasMany ili sto god trece 
-        $biljeske=auth()->user()->biljeske;
+        $biljeskeIndex=auth()->user()->biljeske;
 
         //vraca view biljeske i daje tom view-u te biljeske
-        return view('biljeske', ['biljeske'=>$biljeske]);
+        return view('/biljeske', ['biljeskeIndex'=>$biljeskeIndex]);
 
         //Laravel sve zivo odradi sam
     }
@@ -55,6 +55,6 @@ class BiljeskaController extends Controller
 
         //ako je user vlasnik biljeske, brisi i redirectaj nazad na sve biljeske
         $biljeska->delete();
-        return redirect('biljeske');    return redirect('biljeske');
+        return redirect('/biljeske');
     }
 }

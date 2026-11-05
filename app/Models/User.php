@@ -30,7 +30,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function biljeska() {
+    public function biljeske() {
         return $this->hasMany(Biljeska::class);
     }
 }
